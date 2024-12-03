@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "585939408250",
+    "project_id": "aplicacionintercambios",
+    "storage_bucket": "aplicacionintercambios.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585939408250:android:35c8d66c34dcf9bd6b72c3",
+        "android_client_info": {
+          "package_name": "com.example.appintercambios"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgFT--qvwu6QSeHyFM8BeXWPqUBtYLr18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
