@@ -23,9 +23,9 @@ class ExchangeAdapter(private val exchanges: List<String>) :
 
     override fun onBindViewHolder(holder: ExchangeViewHolder, position: Int) {
         val exchange = exchanges[position]
-        holder.tvExchangeName.text = exchange.name
-        holder.tvExchangeDate.text = "Fecha: ${exchange.date}"
-        holder.tvParticipants.text = "Participantes: ${exchange.participants}"
+        //holder.tvExchangeName.text = exchange.name
+        //holder.tvExchangeDate.text = "Fecha: ${exchange.date}"
+        //holder.tvParticipants.text = "Participantes: ${exchange.participants}"
     }
 
     override fun getItemCount(): Int = exchanges.size

@@ -43,6 +43,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-database") // Para Realtime Database
     implementation ("com.google.firebase:firebase-firestore")
+    implementation ("com.google.firebase:firebase-database-ktx:20.3.3")
+    implementation ("com.google.firebase:firebase-auth-ktx:21.3.0")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

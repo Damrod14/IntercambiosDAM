@@ -22,6 +22,6 @@ class ViewExchangesActivity : AppCompatActivity() {
 
         // Configurar el RecyclerView
         rvExchanges.layoutManager = LinearLayoutManager(this)
-        rvExchanges.adapter = ExchangeAdapter(exchanges)
+        //rvExchanges.adapter = ExchangeAdapter(exchanges)
     }
 }
