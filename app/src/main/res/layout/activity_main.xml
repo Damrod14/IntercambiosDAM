@@ -56,6 +56,13 @@
             android:text="¿No tienes cuenta? Regístrate aquí"
             android:textColor="@android:color/holo_blue_dark"
             android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/btnGoToThirdActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ir a pantalla principal"
+            android:layout_marginTop="16dp" />
+
     </LinearLayout>
 
 

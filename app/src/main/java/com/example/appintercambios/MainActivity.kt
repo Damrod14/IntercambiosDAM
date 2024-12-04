@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 
 
@@ -28,6 +29,11 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<TextView>(R.id.tvRegister).setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<Button>(R.id.btnGoToThirdActivity).setOnClickListener {
+            val intent = Intent(this, ThirdActivity::class.java)
             startActivity(intent)
         }
 
