@@ -44,4 +44,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/btnGoToParticipating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Consultar mis intercambios"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="229dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

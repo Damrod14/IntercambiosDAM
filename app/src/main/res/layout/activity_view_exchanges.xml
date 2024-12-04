@@ -31,4 +31,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/btnGoToEnterKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Ingresar con clave"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="341dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnGoToParticipating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Consultar mis intercambios"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="413dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

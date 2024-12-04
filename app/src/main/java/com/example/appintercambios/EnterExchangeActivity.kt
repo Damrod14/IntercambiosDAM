@@ -1,5 +1,6 @@
 package com.example.appintercambios
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -31,5 +32,12 @@ class EnterExchangeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Clave incorrecta. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
             }
         }
+
+        val btnGoToParticipating: Button = findViewById(R.id.btnGoToParticipating)
+        btnGoToParticipating.setOnClickListener {
+            val intent = Intent(this, ViewExchangesActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
