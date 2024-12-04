@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Inicializa la referencia a Firebase Realtime Database
+        // Inicializa Firebase Realtime Database
         database = FirebaseDatabase.getInstance().getReference("users")
 
         val emailEditText = findViewById<EditText>(R.id.etEmail)
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Manejar inicio de sesión
+        // Inicio de sesión
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()

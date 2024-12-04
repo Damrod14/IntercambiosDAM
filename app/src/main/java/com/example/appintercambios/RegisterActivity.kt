@@ -26,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.btnRegister)
         val backToLoginText = findViewById<TextView>(R.id.tvBackToLogin)
 
-        // Manejar el clic en "Registrarse"
+        // Acciones del botón "Registrarse"
         registerButton.setOnClickListener {
             val name = nameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
@@ -49,8 +49,6 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
-
-        // Manejar el clic en "Inicia sesión aquí"
         backToLoginText.setOnClickListener {
             finish() // Cierra esta actividad y regresa a la anterior
         }
