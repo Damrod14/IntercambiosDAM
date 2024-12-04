@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ExchangeAdapter(private val exchanges: List<Exchange>) :
+class ExchangeAdapter(private val exchanges: List<String>) :
     RecyclerView.Adapter<ExchangeAdapter.ExchangeViewHolder>() {
 
     class ExchangeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
