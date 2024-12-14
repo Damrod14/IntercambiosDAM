@@ -8,50 +8,45 @@
     tools:context=".EnterExchangeActivity">
 
     <!-- Título -->
+
+    <!-- Campo para ingresar la clave -->
+
+    <!-- Botón para ingresar -->
+
+    <EditText
+        android:id="@+id/etExchangeKey"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="52dp"
+        android:hint="Ingresa la clave del intercambio"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleEnterExchange" />
+
     <TextView
         android:id="@+id/tvTitleEnterExchange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="224dp"
         android:text="Ingresar a un Intercambio"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Campo para ingresar la clave -->
-    <EditText
-        android:id="@+id/etExchangeKey"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Ingresa la clave del intercambio"
-        android:inputType="text"
-        android:layout_marginTop="32dp"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleEnterExchange"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Botón para ingresar -->
     <Button
         android:id="@+id/btnEnterExchange"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:text="Ingresar"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/etExchangeKey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/btnGoToParticipating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Consultar mis intercambios"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="229dp" />
+        app:layout_constraintTop_toBottomOf="@id/etExchangeKey" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

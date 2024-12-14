@@ -6,7 +6,6 @@
 
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -19,31 +18,33 @@
             android:textSize="35sp"
             android:textColor="@android:color/holo_green_dark"
             android:layout_marginBottom="20dp" />
+
         <ImageView
             android:id="@+id/ivLogo"
             android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_height="247dp"
             android:layout_marginBottom="60dp"
             android:contentDescription="Logo de la aplicación"
             android:src="@drawable/logo" />
+
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:hint="Nombre completo"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/etEmailRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="62dp"
             android:hint="Correo electrónico"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/etPasswordRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="62dp"
             android:hint="Contraseña"
             android:inputType="textPassword" />
 

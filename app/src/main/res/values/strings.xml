@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">AppIntercambios</string>
+    <string-array name="exchange_items">
+        <item>Sin categoría</item>
+        <item>Hogar</item>
+        <item>Cocina</item>
+        <item>Cuidado personal</item>
+        <item>Lectura</item>
+        <item>Gadgets</item>
+        <item>Plantas</item>
+        <item>Juegos de mesa</item>
+        <item>Ropa</item>
+        <item>Comida gourmet</item>
+        <item>Artículos personalizados</item>
+    </string-array>
 </resources>
