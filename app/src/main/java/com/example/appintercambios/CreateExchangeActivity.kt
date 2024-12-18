@@ -2,6 +2,7 @@ package com.example.appintercambios
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -26,10 +27,19 @@ class CreateExchangeActivity : AppCompatActivity() {
     private lateinit var btnCreateExchange: Button
     private lateinit var database: DatabaseReference
     private var uniqueKey: String = ""
+    private lateinit var userEmail: String // Nuevo campo para guardar el email del usuario
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_exchange)
+
+        // Validar sesión y obtener el email del usuario
+        val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        userEmail = sharedPref.getString("user_email", null) ?: run {
+            Toast.makeText(this, "Debe iniciar sesión para continuar", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         // Inicializar vistas
         initViews()
@@ -115,11 +125,6 @@ class CreateExchangeActivity : AppCompatActivity() {
         // Obtener todos los correos electrónicos
         val emails = mutableListOf<String>()
 
-        // Agregar el correo inicial (etUserEmail)
-        val initialEmailField = findViewById<EditText>(R.id.etUserEmail)
-        val initialEmail = initialEmailField.text.toString()
-        if (initialEmail.isNotEmpty()) emails.add(initialEmail)
-
         // Agregar los correos dinámicos del contenedor
         for (i in 0 until emailsContainer.childCount) {
             val emailField = emailsContainer.getChildAt(i) as? EditText
@@ -147,9 +152,10 @@ class CreateExchangeActivity : AppCompatActivity() {
             return
         }
 
-        // Crear un objeto para el intercambio
+        // Crear un objeto para el intercambio, incluyendo el email del creador
         val exchange = mapOf(
             "uniqueKey" to uniqueKey,
+            "creatorEmail" to userEmail, // Email del creador
             "emails" to emails,
             "theme" to theme,
             "maxAmount" to maxAmount,
@@ -169,16 +175,4 @@ class CreateExchangeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error al guardar: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
-
-    data class Exchange(
-        val uniqueKey: String,
-        val emails: List<String>,
-        val theme: String,
-        val maxAmount: Double,
-        val deadline: String,
-        val exchangeDate: String,
-        val location: String,
-        val comments: String
-    )
 }

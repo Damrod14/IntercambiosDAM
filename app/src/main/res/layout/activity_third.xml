@@ -25,10 +25,10 @@
             android:text="Crear intercambio" />
 
         <Button
-            android:id="@+id/btnEditDeleteExchange"
+            android:id="@+id/btnConsultExchange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Editar/Eliminar intercambio"
+            android:text="Consultar intercambios"
             android:layout_marginTop="16dp" />
     </LinearLayout>
 

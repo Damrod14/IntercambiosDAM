@@ -30,7 +30,7 @@ class ThirdActivity : AppCompatActivity() {
             startActivity(Intent(this, CreateExchangeActivity::class.java))
         }
 
-        findViewById<Button>(R.id.btnEditDeleteExchange).setOnClickListener {
+        findViewById<Button>(R.id.btnConsultExchange).setOnClickListener {
             startActivity(Intent(this, EditDeleteExchangeActivity::class.java))
         }
 
