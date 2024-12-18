@@ -5,11 +5,14 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateExchangeActivity : AppCompatActivity() {
 
+    // Variables globales
     private val calendar = Calendar.getInstance()
     private lateinit var tvUniqueKey: TextView
     private lateinit var emailsContainer: LinearLayout
@@ -21,12 +24,27 @@ class CreateExchangeActivity : AppCompatActivity() {
     private lateinit var etLocation: EditText
     private lateinit var etComments: EditText
     private lateinit var btnCreateExchange: Button
+    private lateinit var database: DatabaseReference
+    private var uniqueKey: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_exchange)
 
         // Inicializar vistas
+        initViews()
+
+        // Configurar Firebase
+        database = FirebaseDatabase.getInstance().getReference("exchanges")
+
+        // Generar una clave única
+        generateUniqueKey()
+
+        // Configurar eventos
+        configureEventListeners()
+    }
+
+    private fun initViews() {
         tvUniqueKey = findViewById(R.id.tvUniqueKey)
         emailsContainer = findViewById(R.id.emailsContainer)
         btnAddEmail = findViewById(R.id.btnAddEmail)
@@ -37,23 +55,22 @@ class CreateExchangeActivity : AppCompatActivity() {
         etLocation = findViewById(R.id.etLocation)
         etComments = findViewById(R.id.etComments)
         btnCreateExchange = findViewById(R.id.btnCreateExchange)
+    }
 
-        // Generar una clave única
-        generateUniqueKey()
-
-        // Configurar botón para agregar más campos de correo
+    private fun configureEventListeners() {
+        // Botón para agregar correos electrónicos
         btnAddEmail.setOnClickListener { addEmailField() }
 
-        // Configurar selección de fechas
+        // Selección de fechas
         tvDeadline.setOnClickListener { showDatePickerDialog(tvDeadline) }
         tvExchangeDate.setOnClickListener { showDateTimePickerDialog(tvExchangeDate) }
 
-        // Configurar botón para crear intercambio
+        // Botón para crear intercambio
         btnCreateExchange.setOnClickListener { createExchange() }
     }
 
     private fun generateUniqueKey() {
-        val uniqueKey = UUID.randomUUID().toString().take(8).uppercase(Locale.ROOT)
+        uniqueKey = (10000..99999).random().toString()
         tvUniqueKey.text = "Clave única: $uniqueKey"
     }
 
@@ -92,11 +109,21 @@ class CreateExchangeActivity : AppCompatActivity() {
     }
 
     private fun createExchange() {
-        // Obtener correos electrónicos
+        // Obtener la clave única
+        val uniqueKey = tvUniqueKey.text.toString().substringAfter(": ").trim()
+
+        // Obtener todos los correos electrónicos
         val emails = mutableListOf<String>()
+
+        // Agregar el correo inicial (etUserEmail)
+        val initialEmailField = findViewById<EditText>(R.id.etUserEmail)
+        val initialEmail = initialEmailField.text.toString()
+        if (initialEmail.isNotEmpty()) emails.add(initialEmail)
+
+        // Agregar los correos dinámicos del contenedor
         for (i in 0 until emailsContainer.childCount) {
-            val emailField = emailsContainer.getChildAt(i) as EditText
-            val email = emailField.text.toString()
+            val emailField = emailsContainer.getChildAt(i) as? EditText
+            val email = emailField?.text.toString()
             if (email.isNotEmpty()) emails.add(email)
         }
 
@@ -106,6 +133,52 @@ class CreateExchangeActivity : AppCompatActivity() {
             return
         }
 
-        Toast.makeText(this, "Se han enviado invitaciones a: $emails", Toast.LENGTH_SHORT).show()
+        // Obtener otros datos
+        val theme = spTheme.selectedItem.toString()
+        val maxAmount = etMaxAmount.text.toString().toDoubleOrNull()
+        val deadline = tvDeadline.text.toString()
+        val exchangeDate = tvExchangeDate.text.toString()
+        val location = etLocation.text.toString()
+        val comments = etComments.text.toString()
+
+        // Validar los campos obligatorios
+        if (theme.isEmpty() || maxAmount == null || deadline.isEmpty() || exchangeDate.isEmpty() || location.isEmpty()) {
+            Toast.makeText(this, "Por favor, complete todos los campos obligatorios", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Crear un objeto para el intercambio
+        val exchange = mapOf(
+            "uniqueKey" to uniqueKey,
+            "emails" to emails,
+            "theme" to theme,
+            "maxAmount" to maxAmount,
+            "deadline" to deadline,
+            "exchangeDate" to exchangeDate,
+            "location" to location,
+            "comments" to comments
+        )
+
+        // Guardar en Firebase
+        database.child(uniqueKey).setValue(exchange)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Intercambio creado exitosamente", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error al guardar: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
     }
+
+
+    data class Exchange(
+        val uniqueKey: String,
+        val emails: List<String>,
+        val theme: String,
+        val maxAmount: Double,
+        val deadline: String,
+        val exchangeDate: String,
+        val location: String,
+        val comments: String
+    )
 }
