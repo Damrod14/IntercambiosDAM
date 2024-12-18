@@ -1,5 +1,6 @@
 package com.example.appintercambios
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Inicializa Firebase Realtime Database
         database = FirebaseDatabase.getInstance().getReference("users")
 
         val emailEditText = findViewById<EditText>(R.id.etEmail)
@@ -26,13 +26,10 @@ class MainActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.btnLogin)
         val registerTextView = findViewById<TextView>(R.id.tvRegister)
 
-        // Navegar al registro
         registerTextView.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        // Inicio de sesión
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
@@ -43,12 +40,20 @@ class MainActivity : AppCompatActivity() {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()) {
                                 for (userSnapshot in snapshot.children) {
-                                    val userPassword =
-                                        userSnapshot.child("password").getValue(String::class.java)
+                                    val userPassword = userSnapshot.child("password").getValue(String::class.java)
                                     if (userPassword == password) {
+                                        val userName = userSnapshot.child("name").getValue(String::class.java)
+                                        val userEmail = userSnapshot.child("email").getValue(String::class.java)
+
+                                        // Guardar sesión en SharedPreferences
+                                        val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+                                        val editor = sharedPref.edit()
+                                        editor.putString("user_name", userName)
+                                        editor.putString("user_email", userEmail)
+                                        editor.apply()
+
                                         Toast.makeText(this@MainActivity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                                        val intent = Intent(this@MainActivity, ThirdActivity::class.java)
-                                        startActivity(intent)
+                                        startActivity(Intent(this@MainActivity, ThirdActivity::class.java))
                                         finish()
                                         return
                                     }
