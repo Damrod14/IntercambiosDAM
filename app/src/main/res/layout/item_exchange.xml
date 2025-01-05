@@ -1,43 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Nombre del intercambio -->
     <TextView
         android:id="@+id/tvExchangeName"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nombre del Intercambio"
+        android:text="Nombre del intercambio"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingBottom="4dp" />
 
-    <!-- Fecha del intercambio -->
     <TextView
         android:id="@+id/tvExchangeDate"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fecha: 2024-12-25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvExchangeName"
-        android:layout_marginTop="8dp"/>
-
-    <!-- Número de participantes -->
+        android:text="Fecha del intercambio"
+        android:textSize="16sp"
+        android:paddingBottom="4dp" />
     <TextView
-        android:id="@+id/tvParticipants"
-        android:layout_width="0dp"
+        android:id="@+id/tvExchangeLocation"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Participantes: 10"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvExchangeDate"
-        android:layout_marginTop="8dp"/>
+        android:text="Ubicación" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvExchangemaxAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Costo Máximo"
+        android:textSize="14sp" />
+
+</LinearLayout>

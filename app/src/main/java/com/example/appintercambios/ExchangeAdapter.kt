@@ -6,23 +6,40 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ExchangeAdapter(private val exchangeList: List<String>) :
-    RecyclerView.Adapter<ExchangeAdapter.ExchangeViewHolder>() {
+data class Exchange(
+    val name: String,
+    val date: String,
+    val location: String,
+    val maxAmount: Int,
+    val theme: String,
+    val comments: String,
+    val emails: List<String>,
+    val uniqueKey: String
+)
 
-    class ExchangeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(android.R.id.text1)
+class ExchangeAdapter(private val exchanges: List<Exchange>) : RecyclerView.Adapter<ExchangeAdapter.ViewHolder>() {
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val nameTextView: TextView = view.findViewById(R.id.tvExchangeName)
+        val dateTextView: TextView = view.findViewById(R.id.tvExchangeDate)
+        val maxAmountTextView: TextView = view.findViewById(R.id.tvExchangemaxAmount)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExchangeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_1, parent, false)
-        return ExchangeViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_exchange, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ExchangeViewHolder, position: Int) {
-        holder.textView.text = exchangeList[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val exchange = exchanges[position]
+        holder.nameTextView.text = exchange.name
+        holder.dateTextView.text = exchange.date
+        holder.maxAmountTextView.text = "Costo Máx: ${exchange.maxAmount}"
     }
 
     override fun getItemCount(): Int {
-        return exchangeList.size
+        return exchanges.size
     }
+
 }
+

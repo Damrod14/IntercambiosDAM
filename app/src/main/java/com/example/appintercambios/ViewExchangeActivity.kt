@@ -15,12 +15,7 @@ class ViewExchangesActivity : AppCompatActivity() {
 
         val rvExchanges = findViewById<RecyclerView>(R.id.rvExchanges)
 
-        // Datos simulados
-        val exchanges = listOf(
-            Exchange("Intercambio Navideño", "2024-12-15", 10),
-            Exchange("Cumpleaños Juan", "2024-01-20", 8),
-            Exchange("Amigo Secreto", "2024-02-14", 12)
-        )
+
 
         // Configurar el RecyclerView
         rvExchanges.layoutManager = LinearLayoutManager(this)
