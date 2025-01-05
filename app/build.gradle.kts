@@ -35,17 +35,24 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    packaging {
+        resources {
+            excludes.add("META-INF/NOTICE.md")
+            excludes.add("META-INF/LICENSE.md")
+        }
+    }
 }
 
 dependencies {
-
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-database") // Para Realtime Database
-    implementation ("com.google.firebase:firebase-firestore")
-    implementation ("com.google.firebase:firebase-database-ktx:20.3.3")
-    implementation ("com.google.firebase:firebase-auth-ktx:21.3.0")
-
+    implementation("com.google.firebase:firebase-database") // Para Realtime Database
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-database-ktx:20.3.3")
+    implementation("com.google.firebase:firebase-auth-ktx:21.3.0")
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

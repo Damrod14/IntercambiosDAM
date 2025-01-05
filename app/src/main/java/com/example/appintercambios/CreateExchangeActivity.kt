@@ -1,4 +1,5 @@
 package com.example.appintercambios
+import android.os.StrictMode
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -10,6 +11,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.mail.Authenticator
+import javax.mail.Message
+import javax.mail.PasswordAuthentication
+import javax.mail.Session
+import javax.mail.Transport
+import javax.mail.internet.InternetAddress
+import javax.mail.internet.MimeMessage
 
 class CreateExchangeActivity : AppCompatActivity() {
 
@@ -67,6 +75,48 @@ class CreateExchangeActivity : AppCompatActivity() {
         btnCreateExchange = findViewById(R.id.btnCreateExchange)
     }
 
+
+    fun sendEmail(context: Context, toEmail: String, subject: String, messageBody: String) {
+        val email = "erodriguezm1406@gmail.com"
+        val password = "pupy wjpl vlkj xnzx"
+
+        // Configuración del policy para evitar problemas de red en el hilo principal (no recomendado para producción)
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        val props = Properties().apply {
+            put("mail.smtp.host", "smtp.gmail.com")
+            put("mail.smtp.socketFactory.port", "465")
+            put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory")
+            put("mail.smtp.auth", "true")
+            put("mail.smtp.port", "465")
+        }
+
+        val session = Session.getInstance(props, object : Authenticator() {
+            override fun getPasswordAuthentication(): PasswordAuthentication {
+                return PasswordAuthentication(email, password)
+            }
+        })
+
+        try {
+            val message = MimeMessage(session).apply {
+                setFrom(InternetAddress(email))
+                setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail))
+                setSubject(subject)
+                setText(messageBody)
+            }
+
+            Transport.send(message)
+            Toast.makeText(context, "Correo enviado a $toEmail", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(context, "Error al enviar correo: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
+
+
     private fun configureEventListeners() {
         // Botón para agregar correos electrónicos
         btnAddEmail.setOnClickListener { addEmailField() }
@@ -119,13 +169,9 @@ class CreateExchangeActivity : AppCompatActivity() {
     }
 
     private fun createExchange() {
-        // Obtener la clave única
-        val uniqueKey = tvUniqueKey.text.toString().substringAfter(": ").trim()
-
         // Obtener todos los correos electrónicos
         val emails = mutableListOf<String>()
 
-        // Agregar los correos dinámicos del contenedor
         for (i in 0 until emailsContainer.childCount) {
             val emailField = emailsContainer.getChildAt(i) as? EditText
             val email = emailField?.text.toString()
@@ -152,10 +198,10 @@ class CreateExchangeActivity : AppCompatActivity() {
             return
         }
 
-        // Crear un objeto para el intercambio, incluyendo el email del creador
+        // Crear un objeto para el intercambio
         val exchange = mapOf(
             "uniqueKey" to uniqueKey,
-            "creatorEmail" to userEmail, // Email del creador
+            "creatorEmail" to userEmail,
             "emails" to emails,
             "theme" to theme,
             "maxAmount" to maxAmount,
@@ -174,5 +220,13 @@ class CreateExchangeActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Error al guardar: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
+
+        // Enviar correos electrónicos a los participantes
+        val subject = "Invitación al intercambio"
+        val messageBody = "¡Has sido invitado al intercambio con clave $uniqueKey!"
+
+        emails.forEach { email ->
+            sendEmail(this, email, subject, messageBody)
+        }
     }
 }
